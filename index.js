@@ -1,6 +1,6 @@
 //Rock beats scissors, scissors beat paper, and paper beats rock.
 
-//getComputerChoice: A function that generates a random number from 0 - 3
+//getComputerChoice: A function that generates a random number from 0 - 2, both numbers, (0 and 2) inclussive.
 
 function getComputerChoice() {
   let result;
@@ -15,12 +15,21 @@ function getComputerChoice() {
   return result;
 }
 
-//playRound: A function that allows a playe Selectionto play the Roock, paper, scissors game with the computerSelection
+/*playRound: A function that allows a player to play the Roock, paper, scissors game with the computerSelection
+
+PlayerSelection: The input that will be recieved from the player.
+
+ComputerSelection: A randomnly generated input by the computer, that will be received from the computer.
+
+return: Return either Player (player wins), Computer (computer wins) or Draw (draw game)
+
+
+*/
 
 function playRound(playerSelection, computerSelection) {
-  let caseInsensitive = playerSelection.toLowerCase();
+  let caseInsensitive = playerSelection.toLowerCase(); // makes the playerselection input case insensitive
 
-  let winner;
+  let winner; // Stores The winner of the game
 
   if (caseInsensitive == computerSelection) {
     console.log(`It is a DRAW`);
@@ -52,6 +61,12 @@ function playRound(playerSelection, computerSelection) {
   }
   return winner;
 }
+
+/*
+game : A function that plays the Rock, paper scissors game, over a given number of times. (5 in this case) and keeps a score of the winner of each round.
+
+return: Returns the player with the highest score or a draw
+*/
 
 function game() {
   let gameResponse,
