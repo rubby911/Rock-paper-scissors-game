@@ -1,123 +1,80 @@
 //Rock beats scissors, scissors beat paper, and paper beats rock.
 
-function getComputerChoice(){
-    let result = ""
-    let value = Math.floor(Math.random() * 3)
-    if (value === 0){
-        result += "Rock"
-    }
-    else if(value === 1){
-        result += "Paper"
-    }
-    else{
-        result += "Scissors"
-    }
-    return result;
+//getComputerChoice: A function that generates a random number from 0 - 3
+
+function getComputerChoice() {
+  let result;
+  let value = Math.floor(Math.random() * 3);
+  if (value === 0) {
+    result = "rock";
+  } else if (value === 1) {
+    result = "paper";
+  } else {
+    result = "scissors";
+  }
+  return result;
 }
 
+//playRound: A function that allows a playe Selectionto play the Roock, paper, scissors game with the computerSelection
 
-//console.log(getComputerChoice())
+function playRound(playerSelection, computerSelection) {
+  let caseInsensitive = playerSelection.toLowerCase();
 
+  let winner;
 
-function playerRound(player, computer){
-   let convertedPlayer = player.toLowerCase()
-   let convertedComputer = computer.toLowerCase()
-   let result = ""
-   if(convertedPlayer === convertedComputer){
-       result += `It is a DRAW`
-   }
-   else if(convertedPlayer === "rock"){
-       if(convertedComputer === "scissors"){
-           result += "Rock beat scissors, you WIN"
-       }
-       else if(convertedComputer === "paper"){
-           result += "Paper beats roack, Computer WIN"
-       }
-
-   }
-   else if(convertedPlayer === "paper"){
-       if(convertedComputer === "scissors"){
-           result += "Scissors beats paper, Computer WIN"
-       }
-       else if(convertedComputer === "rock"){
-           result += "Paper beats rock, You WIN"
-       }
-   }
-   else if(convertedPlayer === "scissors"){
-       if(convertedComputer === "rock"){
-           result += "Rock beats scissors, Computer win"
-       }
-       else if(convertedComputer === "paper"){
-           result += "Scissors beats paper, You win"
-       }
-   }
-
-
-
-
-   return result
+  if (caseInsensitive == computerSelection) {
+    console.log(`It is a DRAW`);
+    winner = "DRAW";
+  } else if (caseInsensitive == "rock") {
+    if (computerSelection == "paper") {
+      console.log("Paper beats Rock you loose!");
+      winner = "Computer";
+    } else {
+      console.log("rock beats scissors you WIN!");
+      winner = "Player";
+    }
+  } else if (caseInsensitive == "paper") {
+    if (computerSelection == "scissors") {
+      console.log(`${computerSelection} beats ${caseInsensitive}, you loose!`);
+      winner = "Computer";
+    } else {
+      console.log(`${caseInsensitive} beats ${computerSelection}, you win`);
+      winner = "Player";
+    }
+  } else if (caseInsensitive == "scissors") {
+    if (computerSelection == "paper") {
+      console.log(`${caseInsensitive} beats ${computerSelection}, you win`);
+      winner = "Player";
+    } else {
+      console.log(`${computerSelection} beats ${caseInsensitive}, you loose`);
+      winner = "Computer";
+    }
+  }
+  return winner;
 }
 
+function game() {
+  let gameResponse,
+    computerScores = 0,
+    playerScores = 0,
+    highestScore;
+  for (let i = 1; i <= 5; i++) {
+    gameResponse = playRound("rock", getComputerChoice());
 
-
-
-
-
-
-
-//console.log(playerRound("paPEr", "SCissorS"))
-
-
-function game(){
-    let computerScore = 0;
-    let playerScore = 0;
-    let message = ""
-    let result = ""
-    for (let i = 1; i <= 5; i++){
-        let playerInput = prompt("Enter either ROCK, Paper, or Scissors")
-        result += playerRound(playerInput, getComputerChoice())
-        if(result === `It is a DRAW`){
-            //message += "No WINNER"
-            console.log(`Round ${i} is a DRAW`)
-        }
-        else if (result === "Rock beat scissors, you WIN"){
-            playerScore += 1;
-            console.log(`You WIN round ${i}`)
-            
-        }
-        else if(result === "Paper beats roack, Computer WIN"){
-            computerScore += 1;
-            console.log(`Computer WIN round ${i}`)
-        }
-        else if(result === "Scissors beats paper, Computer WIN"){
-            computerScore += 1;
-            console.log(`Computer WIN round ${i}`)
-        }
-        else if(result === "Paper beats rock, You WIN"){
-            playerScore += 1;
-            console.log(`You Win round ${i}`)
-        }
-        else if(result === "Rock beats scissors, Computer win"){
-            computerScore += 1
-            console.log(`Computer WIN round ${i}`)
-        }
-        else{
-            playerScore += 1;
-            console.log(`You WIN round ${i}`)
-
-        }
+    if (gameResponse == "Computer") {
+      computerScores++;
+    } else if (gameResponse == "Player") {
+      playerScores++;
     }
-    if(computerScore > playerScore){
-        message += `Computer WIN with a score of ${computerScore}`
-    }
-    else if(computerScore < playerScore){
-        message += `You WIN with a score of ${playerScore}`
-    }
-    else{
-        message += `YOU and computer = ${playerScore} it is a DRAW`
-    }
-
-    return message;
+  }
+  if (computerScores > playerScores) {
+    highestScore = `Computer score of ${computerScores} is higher than Player score of ${playerScores}`;
+  } else if (playerScores > computerScores)
+    highestScore = `Player score of ${playerScores} is higher than computer score of ${computerScores}`;
+  else {
+    highestScore = `Computer score = ${computerScores}\nPlayer scores = ${playerScores} NO WINNER`;
+  }
+  return highestScore;
 }
 
-console.log(game())
+console.log(game());
