@@ -27,14 +27,15 @@ return: Return either Player (player wins), Computer (computer wins) or Draw (dr
 */
 
 function playRound(playerSelection, computerSelection) {
-  let caseInsensitive = playerSelection.toLowerCase(); // makes the playerselection input case insensitive
+  let userSelection = prompt("What do you choose, Rock, Paper, or Scissor? ");
+  playerSelection = userSelection.toLowerCase();
 
   let winner; // Stores The winner of the game
 
-  if (caseInsensitive == computerSelection) {
+  if (playerSelection == computerSelection) {
     console.log(`It is a DRAW`);
     winner = "DRAW";
-  } else if (caseInsensitive == "rock") {
+  } else if (playerSelection == "rock") {
     if (computerSelection == "paper") {
       console.log("Paper beats Rock you loose!");
       winner = "Computer";
@@ -42,22 +43,24 @@ function playRound(playerSelection, computerSelection) {
       console.log("rock beats scissors you WIN!");
       winner = "Player";
     }
-  } else if (caseInsensitive == "paper") {
+  } else if (playerSelection == "paper") {
     if (computerSelection == "scissors") {
-      console.log(`${computerSelection} beats ${caseInsensitive}, you loose!`);
+      console.log(`${computerSelection} beats ${playerSelection}, you loose!`);
       winner = "Computer";
     } else {
-      console.log(`${caseInsensitive} beats ${computerSelection}, you win`);
+      console.log(`${playerSelection} beats ${computerSelection}, you win`);
       winner = "Player";
     }
-  } else if (caseInsensitive == "scissors") {
+  } else if (playerSelection == "scissors") {
     if (computerSelection == "paper") {
-      console.log(`${caseInsensitive} beats ${computerSelection}, you win`);
+      console.log(`${playerSelection} beats ${computerSelection}, you win`);
       winner = "Player";
     } else {
-      console.log(`${computerSelection} beats ${caseInsensitive}, you loose`);
+      console.log(`${computerSelection} beats ${playerSelection}, you loose`);
       winner = "Computer";
     }
+  } else {
+    winner = "Sorry invalid response receive, try again";
   }
   return winner;
 }
@@ -80,6 +83,9 @@ function game() {
       computerScores++;
     } else if (gameResponse == "Player") {
       playerScores++;
+    } else {
+      console.log("Invalid value received, game exited try again");
+      break;
     }
   }
   if (computerScores > playerScores) {
