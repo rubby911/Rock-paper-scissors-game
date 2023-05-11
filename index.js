@@ -1,68 +1,44 @@
-//Rock beats scissors, scissors beat paper, and paper beats rock.
+/*The Rock paper scissors game logic is as follow:
+Rock beats scissors, scissors beat paper, and paper beats rock.
+*/
 
 //getComputerChoice: A function that generates a random number from 0 - 2, both numbers, (0 and 2) inclussive.
 
 function getComputerChoice() {
-  let result;
-  let value = Math.floor(Math.random() * 3);
-  if (value === 0) {
-    result = "rock";
-  } else if (value === 1) {
-    result = "paper";
-  } else {
-    result = "scissors";
-  }
-  return result;
+  let randomNumber = Math.floor(Math.random() * 3);
+  let options = ['rock', 'paper', 'scissors']
+  return options[randomNumber];
 }
 
-/*playRound: A function that allows a player to play the Roock, paper, scissors game with the computerSelection
+/*playRound: A function that allows a player to play the Roock, paper, scissors game with the computer
 
 PlayerSelection: The input that will be recieved from the player.
 
 ComputerSelection: A randomnly generated input by the computer, that will be received from the computer.
 
-return: Return either Player (player wins), Computer (computer wins) or Draw (draw game)
+return: Returns either Player (player wins), Computer (computer wins) or Draw (draw game)
+
 
 
 */
 
-function playRound(playerSelection, computerSelection) {
-  let userSelection = prompt("What do you choose, Rock, Paper, or Scissor? ");
-  playerSelection = userSelection.toLowerCase();
 
-  let winner; // Stores The winner of the game
-
-  if (playerSelection == computerSelection) {
-    console.log(`It is a DRAW`);
-    winner = "DRAW";
-  } else if (playerSelection == "rock") {
-    if (computerSelection == "paper") {
-      console.log("Paper beats Rock you loose!");
-      winner = "Computer";
-    } else {
-      console.log("rock beats scissors you WIN!");
-      winner = "Player";
-    }
-  } else if (playerSelection == "paper") {
-    if (computerSelection == "scissors") {
-      console.log(`${computerSelection} beats ${playerSelection}, you loose!`);
-      winner = "Computer";
-    } else {
-      console.log(`${playerSelection} beats ${computerSelection}, you win`);
-      winner = "Player";
-    }
-  } else if (playerSelection == "scissors") {
-    if (computerSelection == "paper") {
-      console.log(`${playerSelection} beats ${computerSelection}, you win`);
-      winner = "Player";
-    } else {
-      console.log(`${computerSelection} beats ${playerSelection}, you loose`);
-      winner = "Computer";
-    }
-  } else {
-    winner = "Sorry invalid response receive, try again";
+function playRound(userSelection, computerSelection) {
+  let result;
+  let playerSelection = userSelection.toLowerCase()
+  if((playerSelection === 'rock' && computerSelection === 'paper') || (playerSelection === 'paper' && computerSelection === 'scissors') || (playerSelection === 'scissors' && computerSelection === 'rock')){
+   result = `${computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)} beats ${userSelection}. You loose!`
   }
-  return winner;
+  else if((computerSelection === "rock" && playerSelection === "paper") || (computerSelection === "paper" && playerSelection === "scissors") || (computerSelection === "scissors" && playerSelection === "rock")){
+    result = `${playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)}. You WIN`
+  }
+  else if(playerSelection === computerSelection){
+    result = `You chose ${playerSelection}, computer also chose ${computerSelection}. So it is a TIE`
+  }
+  else{
+    result = `Invalid input ${playerSelection}, check your input and try again`
+  }
+  return result;
 }
 
 /*
@@ -77,25 +53,23 @@ function game() {
     playerScores = 0,
     highestScore;
   for (let i = 1; i <= 5; i++) {
-    gameResponse = playRound("rock", getComputerChoice());
+    let userSelection = prompt("Enter either Rock, paper or scissors")
+    gameResponse = playRound(userSelection, getComputerChoice());
+    console.log(gameResponse)
 
-    if (gameResponse == "Computer") {
+    if (gameResponse.includes('You loose!')) {
+      
       computerScores++;
-    } else if (gameResponse == "Player") {
+    } else if (gameResponse.includes('You WIN')) {
       playerScores++;
-    } else {
-      console.log("Invalid value received, game exited try again");
-      break;
     }
   }
   if (computerScores > playerScores) {
-    highestScore = `Computer score of ${computerScores} is higher than Player score of ${playerScores}`;
+    highestScore = `Computer WON with a total score of = ${computerScores}\n VS your score of = ${playerScores}`;
   } else if (playerScores > computerScores)
-    highestScore = `Player score of ${playerScores} is higher than computer score of ${computerScores}`;
+    highestScore = `You WON with a total score of ${playerScores}. VS computer score of ${computerScores}`;
   else {
-    highestScore = `Computer score = ${computerScores}\nPlayer scores = ${playerScores} NO WINNER`;
+    highestScore = `Computer score = ${computerScores} VS your score = ${playerScores} NO WINNER`;
   }
   return highestScore;
 }
-
-console.log(game());
