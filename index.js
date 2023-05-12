@@ -9,8 +9,21 @@ function getComputerChoice() {
   let options = ['rock', 'paper', 'scissors']
   return options[randomNumber];
 }
+
+
+
+
+
+
+
+
 let playerScore = 0;
 let computerScore = 0;
+
+
+
+
+
 
 function playRound(userSelection, computerSelection) {
   
@@ -35,25 +48,53 @@ function playRound(userSelection, computerSelection) {
 }
 
 
+
+
+
+
 let buttons = document.querySelectorAll('button')
 let resultp = document.querySelector('p')
 let resultDiv = document.getElementById('resultdiv')
+
+
+
+
+
+function disableButton(){
+  buttons.forEach(button =>{
+    button.disabled = true;
+  })
+}
+
+
+
+
+
+
+
+
+
 buttons.forEach(button =>{
   button.addEventListener('click', function gameStarts(){ 
     let gamePlay = playRound(button.textContent, getComputerChoice())
     resultDiv.classList.add('resultdiv')
+    
     resultp.innerHTML = gamePlay + `<br><br>` +  `Your current score = ${playerScore}` + "<br><br>" + `Computer current score = ${computerScore}`
   if(playerScore > computerScore && playerScore >= 5){
-    resultp.innerHTML = gamePlay + `<br><br>` +  `Your current score = ${playerScore}` + "<br><br>" + `Computer current score = ${computerScore}` + "<br><br>" +
-    `Congratulations you WON with a total score of ${playerScore - computerScore}` + "<br><br>" + "Reload the page to play the game again" 
-    buttons.forEach(butt => butt.disabled = true)
+    resultp.innerHTML = gamePlay    + "<br><br>" +
+    `Congratulations you WON with a total score of ${playerScore - computerScore}` + "<br><br>" + "Reload the page to play the game again"
+    resultDiv.style.backgroundColor = 'green' 
+    disableButton()
   }
   else if(computerScore > playerScore && computerScore >= 5){
-    resultp.innerHTML = gamePlay +  `<br><br>` +  `Your current score = ${playerScore}` + "<br><br>" + `Computer current score = ${computerScore}` + "<br><br>" +
+    resultp.innerHTML = gamePlay  + "<br><br>" +
     `Better luck next time. Computer WON with a total score of ${computerScore - playerScore}` + "<br><br>" + "Reload the page to play the game again"
-    buttons.forEach(butt =>  
-      butt.disabled = true)
-  }  
-  })
-})
+    resultDiv.style.backgroundColor = "red";
+    disableButton()
+  }
+
+}
+)
+}
+) 
 
